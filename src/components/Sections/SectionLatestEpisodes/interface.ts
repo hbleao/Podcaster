@@ -10,7 +10,7 @@ export type Episode = {
   durationAsString: string;
 }
 
-export type SectionHomeProps = {
-  episodes: Episode[];
+export type SectionLatestEpisodesProps = {
   latestEpisodes: Episode[];
+  allEpisodes: Episode[];
 }

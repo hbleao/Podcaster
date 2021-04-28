@@ -5,10 +5,10 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
 
 export const EpisodesService = {
-  get: async () => {
-    const { data } = await api.get('/api/episodes', {
+  get: async (limit = 12) => {
+    const { data } = await api.get('/episodes', {
       params: {
-        _limit: 12,
+        _limit: limit,
         _sort: 'published_at',
         _order: 'desc'
       }
@@ -29,12 +29,27 @@ export const EpisodesService = {
         url: episodes.file.url
       }
     })
-
-    const latestEpisodes = formatEpisodes.slice(0, 2);
     
     return {
-      allEpisodes: formatEpisodes, 
-      latestEpisodes
+      episodes: formatEpisodes,
     };
-  }
+  },
+  getBySlug: async (slug) => {
+    const { data } = await api.get(`/episodes/${slug}`);
+
+    const episode = {
+      id: data.id,
+      title: data.title,
+      members: data.members,
+      published_at: format(parseISO(data.published_at), 'd MMM yy', {
+        locale: ptBR
+      }),
+      thumbnail: data.thumbnail,
+      description: data.description,
+      duration: Number(data.file.duration),
+      durationAsString: convertDurationToTimeString(Number(data.file.duration)),
+      url: data.file.url
+    }
+    return episode;
+  },
 }
