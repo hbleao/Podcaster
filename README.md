@@ -1,4 +1,4 @@
-# Podcaster - NLW05 (Frontend)
+# Podcaster
 
 ## Projeto
 O podcaster é um software de reprodução de podcasts desenvolvido na semana da next level week (NLW) promovido pela Rocketseat.
